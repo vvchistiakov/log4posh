@@ -466,7 +466,7 @@ class ANSIBrush {
 	}
 }
 
-function Convert-Encoding ([string]$from,[string]$to){
+function Convert-Encoding ($from, $to) {
 	Begin{
 		$encFrom = [System.Text.Encoding]::GetEncoding($from);
 		$encTo = [System.Text.Encoding]::GetEncoding($to);
@@ -474,6 +474,6 @@ function Convert-Encoding ([string]$from,[string]$to){
 	Process{
 		$bytes = $encTo.GetBytes($_);
 		$bytes = [System.Text.Encoding]::Convert($encFrom,$encTo,$bytes);
-		$encTo.GetString($bytes);
+		return $encTo.GetString($bytes);
 	}
 }

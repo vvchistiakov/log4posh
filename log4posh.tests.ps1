@@ -1,8 +1,6 @@
-﻿Clear-Host;
-$here = Split-Path -Path $MyInvocation.MyCommand.Path -Parent;
-$env:PSModulePath = $env:PSModulePath.Insert(0, (Split-Path -Path $here -Parent) + ';');
-$name = $MyInvocation.MyCommand.Name.Split('.')[0];
-Import-Module $name -Force;
+﻿using module ..\log4posh;
+write-host "$(get-location)"
+Clear-Host;
 
 function test0 {
 	Write-Host "Test 0: Color text";
@@ -10,4 +8,11 @@ function test0 {
 	Write-Host $str;
 }
 
-test0;
+function test1 {
+	Write-Host "Test 1: colorize get location";
+	$brush = New-Object -TypeName ANSIBrush -ArgumentList @([ANSITextColor]::Red, [ANSIBackgroundColor]::Blue)
+	Write-Host "$(Get-Location)";
+	Write-Host ($brush.Colorize("[OK] Рабочая директория изменена: $((Get-Location).Path | Convert-Path) "));
+}
+#test0;
+test1;
